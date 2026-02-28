@@ -1,0 +1,6 @@
+sehatbook.db
+__pycache__/
+.env
+*.pyc
+venv/
+.DS_Store

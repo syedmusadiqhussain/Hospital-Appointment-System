@@ -1,0 +1,110 @@
+name,specialization,hospital,phone_number,location,consultation_fee,wait_time,city,category
+Dr. Syed Nouman Kazmi,Cardiologist,"HMC Hospital, Guldasht Town",,Lahore,"Rs. 1,000",Available Today,Lahore,Cardiologist
+Dr. Naveed Mahmood,Cardiologist,Omar Hospital & Cardiac Centre (Johar Town),,"Johar Town, Lahore","Rs. 2,500",Available Today,Lahore,Cardiologist
+Dr. Hamid Mahmood,Cardiologist,"Boots Medical Center, Askari 10",,Lahore,"Rs. 1,000",Available Today,Lahore,Cardiologist
+Dr. Asad Khan,"Cardiologist, Diabetologist, Medical Specialist","National care hospital okara., 0",,Okara,"Rs. 3,000",Available Today,Lahore,Cardiologist
+Dr. Zahid Mahmood,Cardiologist,"Mukhtaran Rafiq Welfare Hospital, Fateh Garh",,Lahore,"Rs. 1,500",Available Today,Lahore,Cardiologist
+Dr. Waheed Ashraf,Cardiologist,"Kiran International Hospital, punjab",,Sialkot,"Rs. 1,500",Available Today,Lahore,Cardiologist
+Dr. Madiha Ilyas,Cardiologist,"Rehman clinic, Bhimber road",,Gujrat,"Rs. 1,500",Available Today,Lahore,Cardiologist
+Dr. Waqas Ashraf Dar,"Cardiologist, Diabetologist","Mid City Hospital, Jail Road",,Lahore,"Rs. 3,000",Available from Mar 01,Lahore,Cardiologist
+Dr. Junaid Zaffar,Cardiologist,"Hameed Latif Hospital, Garden Town",,Lahore,"Rs. 3,500",Available Today,Lahore,Cardiologist
+Dr. Rizwana,Cardiologist,"Taj Consultants Clinics, Gulshan e Iqbal",,Karachi,"Rs. 1,800",Available from Mar 02,Lahore,Cardiologist
+Dr. Muhammad Wasim Ashraf,Cardiologist,"Noor Hospital, Ferozepur Road",,Lahore,"Rs. 1,500",Available Today,Lahore,Cardiologist
+Dr. Rabia Imran,Dermatologist,Humbly Poly Clinic,,"Allama Iqbal Town, Lahore","Rs. 2,000",Available Today,Lahore,Dermatologist
+Dr. Muhammad Amjad,Dermatologist,MedEast Medical Center,,"Paragon City, Lahore","Rs. 1,000",Available Today,Lahore,Dermatologist
+Dr. Aisha Ahmad,Dermatologist,Skinnovation,,"Johar Town, Lahore","Rs. 1,500",Available Today,Lahore,Dermatologist
+Dr. Kiran Irfan,Dermatologist,Aesthetics Lab By Tibbi,,"DHA Phase 3, Lahore",Rs. 700,Available Today,Lahore,Dermatologist
+Dr. Subheen Fatima,Dermatologist,Skin lab,,"DHA Phase 4, Lahore","Rs. 1,000",Available Today,Lahore,Dermatologist
+Dr. Qurat Ul Ain Sajida,Dermatologist,Doctors Hospital,,"Johar Town, Lahore","Rs. 4,000",Available from Mar 04,Lahore,Dermatologist
+Dr. Asim Ali Malik,Dermatologist,Ittefaq Hospital (Trust),,"Model Town, Lahore","Rs. 3,000",Available from Mar 02,Lahore,Dermatologist
+Dr. Tariq Niaz Butt,Dermatologist,Skin Image - Skin & Laser Clinic,,"Johar Town, Lahore","Rs. 2,000",Available from Mar 02,Lahore,Dermatologist
+Dr. Ursha Shuja,Dermatologist,,,Lahore,Rs. 750,Available Today,Lahore,Dermatologist
+Dr. Umer Mushtaq,Dermatologist,Chughtai Medical Centre,,"DHA Phase 4, Lahore","Rs. 2,000",Available Today,Lahore,Dermatologist
+Dr. Anum Sadia,Dermatologist,Hamood Medical Centre,,"Bahria Orchard, Lahore","Rs. 2,000",Available Today,Lahore,Dermatologist
+Dr. Muneeza Qamar,Dermatologist,Cosmetic Smile centre,,"Wapda town, Lahore","Rs. 1,500",Available Today,Lahore,Dermatologist
+Dr. Mariam Khalid,Gynecologist,"Saira Memorial Hospital, Model Town, Lahore",,Lahore,"Rs. 1,000",Available Today,Lahore,Gynecologist
+Prof. Dr. Shamila Ijaz Munir,"Gynecologist, Fertility Consultant","IMC Hospital, DHA phase 5, Lahore",,Lahore,"Rs. 4,000",Available Today,Lahore,Gynecologist
+Dr. Tahmina Sardar,Gynecologist,"Iqraa Medical Complex Ext Hospital, Johar Town, Lahore",,Lahore,"Rs. 1,500",Available Today,Lahore,Gynecologist
+Dr. Asma Jabeen,Gynecologist,"Chenab Clinic, Model Town, Faisalabad",,Lahore,Rs. 500,Available Today,Lahore,Gynecologist
+Dr. Aroosa Mustafa,Gynecologist,"Quick Booking, Zero Waiting",,Lahore,Rs. 500,Available Today,Lahore,Gynecologist
+Prof. Dr. Shamayela Hanif,Gynecologist,"Dr Shamayela Hanif, Shadman 1, Lahore",,Lahore,"Rs. 3,500",Available Today,Lahore,Gynecologist
+Dr. Nayab Waheed,Gynecologist,"Quick Booking, Zero Waiting",,Lahore,Rs. 500,Available Today,Lahore,Gynecologist
+Assoc. Prof. Dr. Misbah Malik,Gynecologist,"Iqraa Medical Complex Ext Hospital, Johar Town, Lahore",,Lahore,"Rs. 2,000",Available Tomorrow,Lahore,Gynecologist
+Dr. Samina Haq,Gynecologist,Friends IVF/ICSI Center by Dr. Samina Haq,,Lahore,"Rs. 2,000",Available Tomorrow,Lahore,Gynecologist
+Asst. Prof. Dr. Khola Zeeshan,Gynecologist,"Hameed Latif Hospital, Garden Town, Lahore",,Lahore,"Rs. 3,500",Available Today,Lahore,Gynecologist
+Prof. Dr. Zamir A Siddiqui,"Cardiologist, Diabetologist","Park Lane Hospital, Clifton, Karachi",,"Clifton, Karachi","Rs. 4,000",Available Today,Karachi,Cardiologist
+Dr. Mustajab Mujtaba,Cardiologist,"Dr Ziauddin Hospital Kemari, East Wharf-Karachi Port, Karachi",,"Pechs, Karachi","Rs. 1,500",Available from Mar 02,Karachi,Cardiologist
+Dr. Arslan Soneel,Cardiologist,"Alpha med Hospital, Landhi Town, Karachi",,"Landhi Town, Karachi","Rs. 1,000",Available from Mar 02,Karachi,Cardiologist
+Dr. Syed Danish Hasan,"Cardiac Surgeon, Cardiologist","Quick Booking, Zero Waiting",,,"Rs. 1,500",Available Today,Karachi,Cardiologist
+Dr. Abdul Samad Zahid,Cardiologist,"Quick Booking, Zero Waiting",,,Rs. 800,Available Today,Karachi,Cardiologist
+Dr. Mahwish Abbas,Cardiologist,"Quick Booking, Zero Waiting",,,Rs. 700,Available Today,Karachi,Cardiologist
+Dr. Syed Mohammad Haleem,"Cardiologist, Internal Medicine Specialist","Aria Institute Of Medical And Health Sciences, Quetta City, Quetta",,Quetta,"Rs. 1,000",Available Today,Karachi,Cardiologist
+Dr. Rizwana,Cardiologist,"Taj Consultants Clinics, Gulshan e Iqbal, Karachi",,"Gulshan e Iqbal, Karachi","Rs. 1,800",Available from Mar 02,Karachi,Cardiologist
+Dr. Muhammad Asad Baqai,Cardiologist,"Saifee Hospital, North Nazimabad, Karachi",,"North Nazimabad, Karachi","Rs. 1,000",Available Today,Karachi,Cardiologist
+Asst. Prof. Dr. Rubina Khan,Cardiologist,"Hill Park General Hospital (HPGH), Shaheed-e-Millat Road, Karachi",,Karachi,"Rs. 3,000",Available from Mar 02,Karachi,Cardiologist
+Dr. Shamail Zia,"Dermatologist, Aesthetic Physician, Hair Transplant Surgeon","Darul Sehat Hospital, Gulistan-e-Jauhar - Block 4A, Karachi",,Karachi,"Rs. 2,000",Available Today,Karachi,Dermatologist
+Dr. Naeem Uddin,,"Dr Naeem Uddin Skin Clinic (k), Karachi, Karachi",,Karachi,"Rs. 2,000",Available from Mar 05,Karachi,Dermatologist
+Dr. Irfan Ahmed Kakezai,"Dermatologist, Aesthetic Physician","Executive Clinics & Daycare, DHA, Karachi",,Karachi,"Rs. 2,000",Available Tomorrow,Karachi,Dermatologist
+Dr. Zafar Ahmed,Dermatologist,"Deep Ocean Dermatology, Skin Laser Center, Clifton, Karachi",,Karachi,"Rs. 2,000",Available Today,Karachi,Dermatologist
+Dr. Anita Kazi,Dermatologist,"Doctors Plaza, The Plaza Hospital, Do Talwar, Karachi",,Karachi,"Rs. 3,000",Available Today,Karachi,Dermatologist
+Dr. Daulat Pinjani,Dermatologist,"Taj Medical Complex, Saddar, Karachi",,Karachi,"Rs. 2,500",Available Today,Karachi,Dermatologist
+Dr. Rana Ghazanfar,Dermatologist,"Banaras National Hospital, Civil Lines, Karachi",,Karachi,Rs. 500,Available from Mar 02,Karachi,Dermatologist
+Dr. Syeda Asra Jamal,Dermatologist,"Darul Sehat Hospital, Gulistan-e-Jauhar - Block 4A, Karachi",,Karachi,"Rs. 1,200",Available from Mar 02,Karachi,Dermatologist
+Dr. Salma Ayaz,Gynecologist,"Life Care Consultant Clinics, DHA City Karachi",,Karachi,Rs. 800,Available Today,Karachi,Gynecologist
+Dr. Salma Ayaz,Gynecologist,"Qamar-Ul-Islam Hospital, DHA City Karachi",,Karachi,"Rs. 2,000",Available Tomorrow,Karachi,Gynecologist
+Dr. Salma Ayaz,Gynecologist,"Quick Booking, Zero Waiting",,Karachi,"Rs. 1,500",Available from Mar 03,Karachi,Gynecologist
+Dr. Nazifa Mubashir,Gynecologist,"Pasha Hospital, PECHS, Karachi",,Karachi,"Rs. 2,000",Available from Mar 03,Karachi,Gynecologist
+Dr. Nazifa Mubashir,Gynecologist,"Quick Booking, Zero Waiting",,Karachi,"Rs. 3,000",Available from Mar 03,Karachi,Gynecologist
+Dr. Brigadier Rtd Azra Shamsi,Gynecologist,"Hill Park General Hospital (HPGH), Shaheed-e-Millat Road, Karachi",,Karachi,"Rs. 1,000",Available Today,Karachi,Gynecologist
+Dr. Brigadier Rtd Azra Shamsi,Gynecologist,"United Hospital, PECHS, Karachi",,Karachi,"Rs. 2,000",Available from Mar 03,Karachi,Gynecologist
+Asst. Prof. Dr. Sajida Imran,Gynecologist,"Darul Sehat Hospital, Gulistan-e-Jauhar - Block 4A, Karachi",,Karachi,"Rs. 1,000",Available Tomorrow,Karachi,Gynecologist
+Asst. Prof. Dr. Sajida Imran,Gynecologist,"Altamash General Hospital, Clifton, Karachi",,Karachi,"Rs. 1,800",Available from Mar 02,Karachi,Gynecologist
+Asst. Prof. Dr. Sajida Imran,Gynecologist,"Burhani Hospital, New Chali, Karachi",,Karachi,"Rs. 2,000",Available from Mar 03,Karachi,Gynecologist
+Dr. Rahima Jilani,"Obstetrician, Gynecologist","Dr. Ejaz Memorial Clinic, North Nazimabad, Karachi",,Karachi,Rs. 400,Available Today,Karachi,Gynecologist
+Dr. Rahima Jilani,"Obstetrician, Gynecologist","FM General Hospital / Maternity Home, North Nazimabad, Karachi",,Karachi,Rs. 700,Available from Mar 02,Karachi,Gynecologist
+Dr. Kanwal Zehra Zaidi,Gynecologist,"Atia General Hospital, Malir, Karachi",,Karachi,"Rs. 1,000",Available Tomorrow,Karachi,Gynecologist
+Dr. Kanwal Zehra Zaidi,Gynecologist,"Lady Rafat Medical Centre, Model Colony, Karachi",,Karachi,"Rs. 1,000",Available from Mar 02,Karachi,Gynecologist
+Dr. Kanwal Zehra Zaidi,Gynecologist,"Altamash General Hospital, Clifton, Karachi",,Karachi,"Rs. 1,000",Available from Mar 03,Karachi,Gynecologist
+Dr. Eruj Saleem,Gynecologist,"Quick Booking, Zero Waiting",,Karachi,Rs. 500,Available Today,Karachi,Gynecologist
+Dr. Eruj Saleem,Gynecologist,"Quick Booking, Zero Waiting",,Karachi,"Rs. 1,000",Available from Mar 02,Karachi,Gynecologist
+Assoc. Prof. Dr. Shama Chaudhry,Gynecologist,"Ziauddin Hospital, North Nazimabad, Karachi",,Karachi,"Rs. 2,000",Available Tomorrow,Karachi,Gynecologist
+Dr. Nazish Ali,Gynecologist,"Shamsi Hospital, Malir, Karachi",,Karachi,"Rs. 1,000",Available Today,Karachi,Gynecologist
+Dr. Nazish Ali,Gynecologist,"Little steps iVF and genetic centre, Shaheed e Millat Road, Karachi",,Karachi,"Rs. 1,000",Available from Mar 02,Karachi,Gynecologist
+Dr. Nazish Ali,Gynecologist,"Quick Booking, Zero Waiting",,Karachi,"Rs. 3,000",Available from Mar 03,Karachi,Gynecologist
+Prof. Dr. Saher Fatima,Gynecologist,"Altamash General Hospital, Clifton, Karachi",,Karachi,"Rs. 2,500",Available Today,Karachi,Gynecologist
+Dr. Nasreen Rashid,Gynecologist,"Mowloo Juma Hospital, Saddar, Karachi",,Karachi,"Rs. 2,000",Available from Mar 02,Karachi,Gynecologist
+Dr. Rabail Qureshi,Gynecologist,"Doctor Plaza, Do Talwar, Karachi",,Karachi,"Rs. 2,500",Available Today,Karachi,Gynecologist
+Dr. Omer Aziz Mirza,Cardiologist,"Bilal Hospital, Satellite Town, Rawalpindi",N/A,Rawalpindi,"Rs. 1,500",Available from Mar 03,Islamabad,Cardiologist
+Dr. Nayyar Arif,"Cardiologist, Interventional Cardiologist",N/A,N/A,Islamabad,"Rs. 1,000",Available Today,Islamabad,Cardiologist
+Dr. Akhtar Ali,Cardiologist,"Advanced International Hospital, G-8 Markaz, Islamabad",N/A,Islamabad,"Rs. 3,000",Available from Mar 02,Islamabad,Cardiologist
+Prof. Dr. Anjum Ilahi,Cardiologist,"Saeed International Hospital, G-8 Markaz, Islamabad",N/A,Islamabad,"Rs. 3,000",Available from Mar 02,Islamabad,Cardiologist
+Dr. Mamoon Qadir,"Interventional Cardiologist, Cardiologist, Interventional Cardiologist","Kulsoom International Hospital, Blue Area G-7, Islamabad",N/A,Islamabad,"Rs. 3,000",Available from Mar 02,Islamabad,Cardiologist
+Dr. Izaz Ali Khan,Cardiologist,"Omer Diagnostics and Specialist Clinics, G8 Markaz, Islamabad",N/A,Islamabad,"Rs. 1,000",Available Today,Islamabad,Cardiologist
+Dr. Faridullah Khan,Cardiologist,"Advanced International Hospital, G-8 Markaz, Islamabad",N/A,Islamabad,"Rs. 3,000",Available from Mar 04,Islamabad,Cardiologist
+Dr. Hassan Shabbir Arain,Cardiologist,"Bahria Town Hospital, Bahria town, Islamabad",N/A,Islamabad,"Rs. 1,000",Available Tomorrow,Islamabad,Cardiologist
+Dr. Touqeer Akbar,Cardiologist,"Medikay Cardiac Centre, Meherban Colony Rawal Dam Colony, Islamabad",N/A,Islamabad,"Rs. 3,000",Available from Mar 03,Islamabad,Cardiologist
+Dr. Imran Khan,Cardiologist,"Islamabad International Hospital & Research Center, Sector E, Islamabad",N/A,Islamabad,"Rs. 3,000",Available Today,Islamabad,Cardiologist
+Dr. Abdul Manan Bari,Cardiologist,"Quaid-E-Azam International Hospital, Main Peshawar Road, Islamabad",N/A,Islamabad,"Rs. 5,000",Available from Mar 02,Islamabad,Cardiologist
+Dr. Bakht Umar Khan,Cardiologist,"Well care international hospital, Rawalpindi, Rawalpindi",N/A,Rawalpindi,"Rs. 1,000",Available Today,Islamabad,Cardiologist
+Dr. Yusra Shabbir,Dermatologist,"Sarf Hospital, F-10, Islamabad",N/A,Islamabad,Rs. 500,Available from Mar 03,Islamabad,Dermatologist
+Dr. Zeeshan Perwaiz,Dermatologist,"Life Care International Hospital, G-10 Markaz, Islamabad",N/A,Islamabad,"Rs. 1,500",Available from Mar 02,Islamabad,Dermatologist
+Dr. Malik Aftab Afzal,Dermatologist,"Afzal Hospital, Machine Mohalla No.3 Jhelum, OLD GT road, Jhelum",N/A,Islamabad,"Rs. 1,500",Available Today,Islamabad,Dermatologist
+Dr. Professor Brigadier Asher Ahmed,Dermatologist,"Nelson Medical Complex, Abid Majeed Road, Rawalpindi",N/A,Islamabad,"Rs. 2,000",Available Today,Islamabad,Dermatologist
+Dr. Khalid Aslam,Dermatologist,"Skin Care Clinic, Dha phase 2, Islamabad",N/A,Islamabad,"Rs. 2,000",Available Today,Islamabad,Dermatologist
+Assoc. Prof. Dr. Lubna Rani Faysal,Dermatologist,"Islamabad Aesthetic Center, F8 Markaz, Islamabad",N/A,Islamabad,"Rs. 2,500",Available Today,Islamabad,Dermatologist
+Dr. Rabail Khan,Dermatologist,"Dr Rabail's Skin Clinic, Islamabad, Islamabad",N/A,Islamabad,"Rs. 2,000",Available Tomorrow,Islamabad,Dermatologist
+Dr. Shegref Mushtaq,"Dermatologist, Cosmetologist","Cosmetico Clinic, F-6, Islamabad",N/A,Islamabad,"Rs. 2,000",Available from Mar 02,Islamabad,Dermatologist
+Assoc. Prof. Dr. Dur E Shehwar Sikandar,Dermatologist,"Derma Care Clinic, Bahria Town, Islamabad",N/A,Islamabad,"Rs. 3,000",Available Today,Islamabad,Dermatologist
+Dr. Aimen Fatimah,"Dermatologist, Aesthetic Physician, Laser Specialist","Bilal Hospital, Satellite Town, Rawalpindi",N/A,Islamabad,"Rs. 1,200",Available Today,Islamabad,Dermatologist
+Prof. Dr. Umber Jalil Bakhtiar,Gynecologist,"Quaid-E-Azam International Hospital, Main Peshawar Road, Islamabad",N/A,Islamabad,"Rs. 2,000",Available from Mar 02,Islamabad,Gynecologist
+Prof. Dr. Ghazala Sadiq,Gynecologist,"Quaid-E-Azam International Hospital, Main Peshawar Road, Islamabad",N/A,Islamabad,"Rs. 3,500",Available from Mar 02,Islamabad,Gynecologist
+Dr. Ghazala Bashir,Gynecologist,"Hashmi Medical & ICSI Centre, G-11 Markaz, Islamabad",N/A,Islamabad,"Rs. 3,000",Available Today,Islamabad,Gynecologist
+Dr. Maria Athar,Gynecologist,"Quick Booking, Zero Waiting",N/A,Islamabad,"Rs. 1,000",Available Today,Islamabad,Gynecologist
+Dr. Samina Arshad,Gynecologist,"Maxhealth Hospital, 12-K Markaz Rd, G-8, Islamabad",N/A,Islamabad,"Rs. 3,000",Available from Mar 02,Islamabad,Gynecologist
+Dr. Fakhira Shafique,Gynecologist,"Advanced Medicare Center, Lehtrar Road, Islamabad",N/A,Islamabad,"Rs. 1,000",Available Today,Islamabad,Gynecologist
+Dr. Anita Roshan,Gynecologist,"Jeejal Maa Hospital, Qasimabad, Hyderabad",N/A,Islamabad,"Rs. 1,500",Available from Mar 02,Islamabad,Gynecologist
+Dr. Mahwish Choudhry,Gynecologist,"Quick Booking, Zero Waiting",N/A,Islamabad,Rs. 700,Available Today,Islamabad,Gynecologist
+Dr. Memoona Munawar,"Obstetrician, Gynecologist","Islamabad Medical And Surgical Hospital, G-6 Markaz Block 4, Islamabad",N/A,Islamabad,"Rs. 1,000",Available from Mar 02,Islamabad,Gynecologist
+Dr. Sana Maryam,Gynecologist,"Noor General Hospital, G-11 Markaz, Islamabad",N/A,Islamabad,"Rs. 2,500",Available Today,Islamabad,Gynecologist
+Dr. Nimrah Siddique,Gynecologist,"Jinnah Memorial Hospital, Cantt, Rawalpindi",N/A,Islamabad,"Rs. 2,000",Available Today,Islamabad,Gynecologist
+Dr. Sadia Kashif,"Gynecologist, Obstetrician","NESCOM Hospital, H-11, Islamabad",N/A,Islamabad,"Rs. 1,500",Available Today,Islamabad,Gynecologist
