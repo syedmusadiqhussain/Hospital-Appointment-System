@@ -4,6 +4,8 @@ import string
 import os
 from fastapi import FastAPI, HTTPException, Query, Body
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 
@@ -17,6 +19,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Serve static files
+app.mount("/static", StaticFiles(directory="public"), name="static")
 
 DB_NAME = "sehatbook.db"
 
@@ -42,6 +47,10 @@ class ChatRequest(BaseModel):
 
 @app.get("/")
 def read_root():
+    return FileResponse("public/index.html")
+
+@app.get("/api/status")
+def api_status():
     conn = get_db_connection()
     count = conn.execute("SELECT COUNT(*) as c FROM doctors").fetchone()['c']
     conn.close()

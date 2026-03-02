@@ -382,9 +382,14 @@
     </div>
 
     <script>
-        const API_URL = window.location.hostname === 'localhost'
-            ? 'http://localhost:4444'
-            : 'https://sehatbook-api.onrender.com';
+        // Dynamically determine API URL based on current location
+        // If we are on localhost:8000 (frontend only), use localhost:4444 (backend)
+        // If we are on production (same domain), use relative path or empty string (current origin)
+        const API_URL = window.location.port === "8000"
+            ? "http://localhost:4444"
+            : window.location.origin;
+
+        console.log("Using API URL:", API_URL);
 
         let cities = [];
         let specializations = [];
