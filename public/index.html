@@ -4,73 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SehatBook - Find the Right Doctor</title>
-    <!-- Google Fonts: Sora -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS (CDN) -->
+    <title>SehatBook - Pakistan Doctor Booking</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        navy: '#0F172A',
-                        teal: '#0D9488',
-                        'teal-hover': '#0F766E',
-                        'dark-card': '#1E293B',
-                    },
-                    fontFamily: {
-                        sans: ['Sora', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            background-color: #0F172A;
-            color: #F8FAFC;
+        :root {
+            --teal: #10b981;
+            --dark: #111827;
+            --darker: #0f172a;
         }
 
-        .scrollbar-hide::-webkit-scrollbar {
+        body {
+            background-color: var(--darker);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .tab-content {
             display: none;
         }
 
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        .tab-content.active {
+            display: block;
         }
 
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .nav-link.active {
+            color: var(--teal);
+            border-bottom: 2px solid var(--teal);
         }
 
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
+        /* Chat bubbles */
+        .chat-msg {
+            max-width: 80%;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-size: 0.95rem;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
+        .bot-msg {
+            background-color: #374151;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .user-msg {
+            background-color: var(--teal);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
         }
 
         .typing-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #0D9488;
-            border-radius: 50%;
-            display: inline-block;
             animation: bounce 1.4s infinite ease-in-out both;
         }
 
@@ -94,308 +79,216 @@
                 transform: scale(1);
             }
         }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
     </style>
 </head>
 
 <body class="min-h-screen flex flex-col">
 
-    <!-- Sticky Navigation Bar -->
-    <nav class="sticky top-0 z-50 glass-panel border-b border-gray-700">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <span class="text-2xl">🩺</span>
-                <span class="text-xl font-bold tracking-tight">SehatBook</span>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-gray-900 border-b border-gray-800 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-stethoscope text-emerald-500 text-2xl"></i>
+                    <span class="text-xl font-bold tracking-wide">SehatBook</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <button onclick="switchTab('home')"
+                        class="nav-link active px-3 py-2 font-medium transition-colors hover:text-emerald-400">Home</button>
+                    <button onclick="switchTab('find')"
+                        class="nav-link px-3 py-2 font-medium transition-colors hover:text-emerald-400">Find
+                        Doctors</button>
+                    <button onclick="switchTab('ai')"
+                        class="nav-link px-3 py-2 font-medium transition-colors hover:text-emerald-400">AI
+                        Assistant</button>
+                    <button onclick="switchTab('booking')"
+                        class="nav-link px-3 py-2 font-medium transition-colors hover:text-emerald-400">My
+                        Booking</button>
+                </div>
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-300 hover:text-white">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
             </div>
-
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                    </path>
-                </svg>
-            </button>
-
-            <!-- Desktop Navigation -->
-            <div class="hidden md:flex space-x-1 bg-dark-card/50 p-1 rounded-lg">
-                <button onclick="showPage('home')" id="nav-home"
-                    class="nav-btn px-4 py-2 rounded-md text-sm font-medium transition-colors text-white bg-teal shadow-sm">Home</button>
-                <button onclick="showPage('doctors')" id="nav-doctors"
-                    class="nav-btn px-4 py-2 rounded-md text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-card transition-colors">Find
-                    Doctors</button>
-                <button onclick="showPage('chat')" id="nav-chat"
-                    class="nav-btn px-4 py-2 rounded-md text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-card transition-colors">AI
-                    Chat</button>
-                <button onclick="showPage('booking')" id="nav-booking"
-                    class="nav-btn px-4 py-2 rounded-md text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-card transition-colors">My
-                    Booking</button>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-dark-card border-t border-gray-700 p-4 space-y-2">
-            <button onclick="showPage('home'); toggleMobileMenu()"
-                class="block w-full text-left px-4 py-3 rounded-md text-gray-300 hover:bg-gray-700">Home</button>
-            <button onclick="showPage('doctors'); toggleMobileMenu()"
-                class="block w-full text-left px-4 py-3 rounded-md text-gray-300 hover:bg-gray-700">Find
-                Doctors</button>
-            <button onclick="showPage('chat'); toggleMobileMenu()"
-                class="block w-full text-left px-4 py-3 rounded-md text-gray-300 hover:bg-gray-700">AI Chat</button>
-            <button onclick="showPage('booking'); toggleMobileMenu()"
-                class="block w-full text-left px-4 py-3 rounded-md text-gray-300 hover:bg-gray-700">My Booking</button>
         </div>
     </nav>
 
-    <!-- Main Content Area -->
-    <main class="flex-grow container mx-auto px-4 py-6 relative">
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-6">
 
-        <!-- Loading Overlay -->
-        <div id="loading-overlay"
-            class="fixed inset-0 z-[60] bg-navy/80 backdrop-blur-sm flex items-center justify-center hidden">
-            <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-teal"></div>
-        </div>
+        <!-- HOME TAB -->
+        <div id="home" class="tab-content active space-y-12">
+            <!-- Hero -->
+            <div class="text-center py-12 space-y-6">
+                <h1
+                    class="text-4xl md:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-500 bg-clip-text text-transparent">
+                    Find the right doctor, book in seconds
+                </h1>
+                <p class="text-2xl text-gray-300 font-urdu">صحیح ڈاکٹر، صحیح وقت</p>
 
-        <!-- Global Error Message -->
-        <div id="global-error"
-            class="hidden fixed top-20 left-1/2 transform -translate-x-1/2 bg-red-600/90 text-white px-6 py-3 rounded-lg shadow-xl z-50 flex items-center gap-3">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
-                </path>
-            </svg>
-            <span id="global-error-text">Something went wrong</span>
-            <button onclick="document.getElementById('global-error').classList.add('hidden')"
-                class="ml-2 hover:bg-red-700 rounded p-1">✕</button>
-        </div>
-
-        <!-- PAGE 1: HOME -->
-        <div id="page-home" class="page-section animate-fade-in space-y-12">
-            <!-- Hero Section -->
-            <div
-                class="text-center py-16 px-4 relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal/20 to-navy border border-white/5 shadow-2xl">
-                <div class="relative z-10 max-w-4xl mx-auto">
-                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight leading-tight">
-                        Find the right doctor <br> <span class="text-teal">Book in seconds</span>
-                    </h1>
-                    <p class="text-xl md:text-2xl text-gray-300 mb-2 font-serif">
-                        صحیح ڈاکٹر، صحیح وقت
-                    </p>
-                    <p class="text-gray-400 mb-8">Real doctors across Pakistan — Powered by AI</p>
-
-                    <div
-                        class="bg-white/5 backdrop-blur-md p-2 rounded-full max-w-2xl mx-auto flex flex-col md:flex-row gap-2 border border-white/10 shadow-lg">
-                        <div class="relative flex-grow">
-                            <span class="absolute left-4 top-3.5 text-gray-400">🔍</span>
-                            <input type="text" id="hero-search-input" placeholder="Search doctors, hospital..."
-                                class="w-full bg-transparent text-white placeholder-gray-400 pl-10 pr-4 py-3 rounded-full focus:outline-none">
-                        </div>
-                        <select id="hero-city-select"
-                            class="bg-dark-card text-white border-none py-3 px-6 rounded-full focus:outline-none appearance-none cursor-pointer">
-                            <option value="">All Cities</option>
-                        </select>
-                        <button onclick="searchFromHero()"
-                            class="bg-teal hover:bg-teal-hover text-white font-bold py-3 px-8 rounded-full transition shadow-lg transform hover:scale-105">
-                            Search
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Stats Bar -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
-                <div class="glass-panel p-6 rounded-2xl">
-                    <div class="text-3xl md:text-4xl font-bold text-teal mb-1 counter" data-target="0"
-                        id="stat-doctors">0</div>
-                    <div class="text-xs md:text-sm text-gray-400 uppercase tracking-wide">Total Doctors</div>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl">
-                    <div class="text-3xl md:text-4xl font-bold text-purple-400 mb-1 counter" data-target="0"
-                        id="stat-cities">0</div>
-                    <div class="text-xs md:text-sm text-gray-400 uppercase tracking-wide">Cities</div>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl">
-                    <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-1 counter" data-target="0"
-                        id="stat-specializations">0</div>
-                    <div class="text-xs md:text-sm text-gray-400 uppercase tracking-wide">Specializations</div>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl">
-                    <div class="text-3xl md:text-4xl font-bold text-pink-400 mb-1 counter" data-target="0"
-                        id="stat-appointments">0</div>
-                    <div class="text-xs md:text-sm text-gray-400 uppercase tracking-wide">Appointments Booked</div>
-                </div>
-            </div>
-
-            <!-- Specialties Grid -->
-            <div>
-                <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">Browse by Specialty</h2>
-                <div id="specialties-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                    <!-- Loaded dynamically -->
-                </div>
-            </div>
-        </div>
-
-        <!-- PAGE 2: FIND DOCTORS -->
-        <div id="page-doctors" class="page-section hidden animate-fade-in">
-            <div class="flex flex-col lg:flex-row gap-6">
-                <!-- Filters Sidebar -->
-                <div class="w-full lg:w-1/4 space-y-6">
-                    <div class="glass-panel p-6 rounded-xl sticky top-24">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-lg font-bold flex items-center gap-2">
-                                <span>⚡</span> Filters
-                            </h3>
-                            <button onclick="resetFilters()" class="text-xs text-teal hover:underline">Reset</button>
-                        </div>
-
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Search</label>
-                                <input type="text" id="filter-search" placeholder="Name, hospital..."
-                                    class="w-full bg-dark-card border border-gray-700 rounded-lg px-3 py-2 text-sm focus:border-teal focus:outline-none text-white transition-colors">
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-bold text-gray-400 uppercase mb-1">City</label>
-                                <select id="filter-city"
-                                    class="w-full bg-dark-card border border-gray-700 rounded-lg px-3 py-2 text-sm focus:border-teal focus:outline-none text-white transition-colors">
-                                    <option value="">All Cities</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label
-                                    class="block text-xs font-bold text-gray-400 uppercase mb-1">Specialization</label>
-                                <select id="filter-specialty"
-                                    class="w-full bg-dark-card border border-gray-700 rounded-lg px-3 py-2 text-sm focus:border-teal focus:outline-none text-white transition-colors">
-                                    <option value="">All Specialties</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Doctors List -->
-                <div class="w-full lg:w-3/4">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-xl font-bold" id="doctors-count">Loading doctors...</h2>
-                    </div>
-
-                    <div id="doctors-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                        <!-- Loaded dynamically -->
-                    </div>
-
-                    <div id="no-doctors-msg" class="hidden text-center py-20">
-                        <div class="text-6xl mb-4">🩺</div>
-                        <h3 class="text-xl font-bold text-gray-300">No doctors found</h3>
-                        <p class="text-gray-500">Try adjusting your filters</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PAGE 3: AI CHAT -->
-        <div id="page-chat" class="page-section hidden animate-fade-in h-[calc(100vh-140px)]">
-            <div
-                class="max-w-4xl mx-auto h-full flex flex-col glass-panel rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
-                <!-- Chat Header -->
-                <div class="bg-dark-card p-4 border-b border-gray-700 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-teal flex items-center justify-center text-xl shadow-lg">
-                            🤖</div>
-                        <div>
-                            <h3 class="font-bold text-lg leading-tight">SehatBot</h3>
-                            <div class="flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                                <span class="text-xs text-green-400 font-medium">Online</span>
-                            </div>
-                        </div>
-                    </div>
-                    <button onclick="clearChat()"
-                        class="text-gray-400 hover:text-white p-2 rounded-full hover:bg-gray-700 transition"
-                        title="Clear Chat">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                            </path>
-                        </svg>
+                <div
+                    class="max-w-3xl mx-auto mt-8 p-2 bg-gray-800 rounded-full flex items-center border border-gray-700 shadow-xl">
+                    <div class="pl-4 pr-2 text-gray-400"><i class="fa-solid fa-location-dot"></i></div>
+                    <select id="hero-city"
+                        class="bg-transparent text-white focus:outline-none py-3 px-2 w-1/3 cursor-pointer">
+                        <option value="">Select City</option>
+                    </select>
+                    <div class="h-8 w-px bg-gray-700 mx-2"></div>
+                    <input type="text" id="hero-search" placeholder="Search doctors, hospitals, specialties..."
+                        class="flex-grow bg-transparent text-white focus:outline-none py-3 px-2">
+                    <button onclick="searchFromHero()"
+                        class="bg-emerald-600 hover:bg-emerald-700 text-white rounded-full px-8 py-3 font-semibold transition-all">
+                        Search
                     </button>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                    <div class="text-3xl font-bold text-emerald-400 counter" id="stat-doctors">0</div>
+                    <div class="text-sm text-gray-400 mt-1">Total Doctors</div>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                    <div class="text-3xl font-bold text-blue-400 counter" id="stat-cities">0</div>
+                    <div class="text-sm text-gray-400 mt-1">Cities Covered</div>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                    <div class="text-3xl font-bold text-purple-400 counter" id="stat-specializations">0</div>
+                    <div class="text-sm text-gray-400 mt-1">Specializations</div>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
+                    <div class="text-3xl font-bold text-yellow-400 counter" id="stat-appointments">0</div>
+                    <div class="text-sm text-gray-400 mt-1">Appointments Booked</div>
+                </div>
+            </div>
+
+            <!-- Specialties -->
+            <div>
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-user-doctor text-emerald-500"></i> Browse by Specialty
+                </h2>
+                <div id="specialty-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <!-- Loaded by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- FIND DOCTORS TAB -->
+        <div id="find" class="tab-content">
+            <div class="sticky top-20 z-40 bg-gray-900/95 backdrop-blur py-4 border-b border-gray-800 mb-6">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <select id="filter-city"
+                        class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none">
+                        <option value="">All Cities</option>
+                    </select>
+                    <select id="filter-specialty"
+                        class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none">
+                        <option value="">All Specializations</option>
+                    </select>
+                    <input type="text" id="filter-search" placeholder="Search name, hospital..."
+                        class="flex-grow bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none">
+                </div>
+                <div class="mt-2 text-sm text-gray-400" id="results-count">Showing 0 doctors</div>
+            </div>
+
+            <div id="doctors-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Loaded by JS -->
+            </div>
+        </div>
+
+        <!-- AI ASSISTANT TAB -->
+        <div id="ai" class="tab-content h-[calc(100vh-140px)]">
+            <div class="h-full flex flex-col bg-gray-800 rounded-2xl border border-gray-700 overflow-hidden">
+                <!-- Chat Header -->
+                <div class="bg-gray-900 p-4 border-b border-gray-700 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center text-xl">🤖
+                        </div>
+                        <div>
+                            <h3 class="font-bold">SehatBot</h3>
+                            <div class="flex items-center gap-1 text-xs text-emerald-400">
+                                <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span> Online
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Chat Messages -->
-                <div id="chat-messages" class="flex-grow p-4 md:p-6 overflow-y-auto space-y-4 bg-navy/50 scroll-smooth">
-                    <!-- Initial Bot Message -->
-                    <div class="flex justify-start">
-                        <div
-                            class="bg-dark-card text-gray-100 px-5 py-3 rounded-2xl rounded-tl-sm max-w-[85%] md:max-w-[70%] shadow-md border border-gray-700">
-                            <p>السلام علیکم! I am SehatBot 🤖<br>Tell me your city and what medical problem you
-                                have.<br>I will find the best doctor and book for you! Ji zaroor!</p>
-                        </div>
+                <div id="chat-messages" class="flex-grow overflow-y-auto p-4 space-y-4 flex flex-col">
+                    <div class="chat-msg bot-msg">
+                        السلام علیکم! I am SehatBot. Tell me your city and medical concern — I will find the best doctor
+                        for you!
                     </div>
                 </div>
 
                 <!-- Quick Actions -->
-                <div
-                    class="px-4 py-3 bg-dark-card/50 border-t border-gray-700 overflow-x-auto whitespace-nowrap scrollbar-hide flex gap-2">
-                    <button onclick="sendQuickMessage('📍 Lahore')"
-                        class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-xs text-teal-300 border border-gray-600 transition">📍
-                        Lahore</button>
-                    <button onclick="sendQuickMessage('📍 Karachi')"
-                        class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-xs text-teal-300 border border-gray-600 transition">📍
-                        Karachi</button>
-                    <button onclick="sendQuickMessage('📍 Islamabad')"
-                        class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-xs text-teal-300 border border-gray-600 transition">📍
-                        Islamabad</button>
-                    <button onclick="sendQuickMessage('❤️ Heart Problem')"
-                        class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-xs text-teal-300 border border-gray-600 transition">❤️
-                        Heart Problem</button>
-                    <button onclick="sendQuickMessage('🧴 Skin Problem')"
-                        class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-xs text-teal-300 border border-gray-600 transition">🧴
-                        Skin Problem</button>
-                    <button onclick="sendQuickMessage('👶 Child Doctor')"
-                        class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-xs text-teal-300 border border-gray-600 transition">👶
-                        Child Doctor</button>
-                    <button onclick="sendQuickMessage('🦷 Dentist')"
-                        class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-xs text-teal-300 border border-gray-600 transition">🦷
-                        Dentist</button>
+                <div class="p-2 bg-gray-900 border-t border-gray-700 overflow-x-auto whitespace-nowrap scrollbar-hide">
+                    <button onclick="sendQuickMsg('I need a doctor in Lahore')"
+                        class="inline-block px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-sm mr-2 transition">Lahore
+                        Doctor</button>
+                    <button onclick="sendQuickMsg('I need a doctor in Karachi')"
+                        class="inline-block px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-sm mr-2 transition">Karachi
+                        Doctor</button>
+                    <button onclick="sendQuickMsg('I have chest pain')"
+                        class="inline-block px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-sm mr-2 transition">Heart
+                        Problem</button>
+                    <button onclick="sendQuickMsg('I have skin acne')"
+                        class="inline-block px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-sm mr-2 transition">Skin
+                        Problem</button>
+                    <button onclick="sendQuickMsg('I need a child specialist')"
+                        class="inline-block px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-sm mr-2 transition">Child
+                        Specialist</button>
                 </div>
 
-                <!-- Input Area -->
-                <div class="p-4 bg-dark-card border-t border-gray-700 flex gap-2">
-                    <input type="text" id="chat-input" placeholder="Type a message..."
-                        class="flex-grow bg-navy border border-gray-700 rounded-full px-5 py-3 focus:outline-none focus:border-teal text-white placeholder-gray-500"
-                        onkeypress="handleChatKey(event)">
+                <!-- Input -->
+                <div class="p-4 bg-gray-900 flex gap-2">
+                    <input type="text" id="chat-input" placeholder="Type your message..."
+                        class="flex-grow bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none"
+                        onkeypress="if(event.key === 'Enter') sendMessage()">
                     <button onclick="sendMessage()"
-                        class="bg-teal hover:bg-teal-hover text-white w-12 h-12 rounded-full flex items-center justify-center transition shadow-lg transform hover:scale-105">
-                        <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                        </svg>
+                        class="bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg px-6 py-2 transition">
+                        <i class="fa-solid fa-paper-plane"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- PAGE 4: MY BOOKING -->
-        <div id="page-booking" class="page-section hidden animate-fade-in">
-            <div class="max-w-lg mx-auto mt-10">
-                <div class="glass-panel rounded-2xl p-8 shadow-2xl border-t-4 border-teal relative overflow-hidden">
-                    <!-- Background Pattern -->
-                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-teal/10 rounded-full blur-xl"></div>
-
-                    <h2 class="text-3xl font-bold text-center mb-2">Check Appointment</h2>
-                    <p class="text-gray-400 text-center mb-8 text-sm">Enter your confirmation code (e.g. PKAB1234)</p>
-
-                    <div class="flex gap-2 mb-8">
-                        <input type="text" id="booking-code-input" placeholder="PK..."
-                            class="flex-grow bg-dark-card border border-gray-700 rounded-lg px-4 py-3 text-center text-xl tracking-widest uppercase focus:border-teal focus:outline-none text-white font-mono placeholder-gray-600">
-                        <button onclick="findAppointment()"
-                            class="bg-teal hover:bg-teal-hover text-white px-6 rounded-lg font-bold transition shadow-lg">
-                            Find
-                        </button>
+        <!-- MY BOOKING TAB -->
+        <div id="booking" class="tab-content">
+            <div class="max-w-xl mx-auto mt-10">
+                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-2xl text-center">
+                    <h2 class="text-2xl font-bold mb-6">Check Your Appointment</h2>
+                    <div class="relative mb-6">
+                        <input type="text" id="booking-code" placeholder="Enter Confirmation Code (e.g. PK123456)"
+                            class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-4 text-center text-xl tracking-widest uppercase focus:ring-2 focus:ring-emerald-500 outline-none">
                     </div>
+                    <button onclick="checkBooking()"
+                        class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-emerald-900/50">
+                        Find Appointment
+                    </button>
+                </div>
 
-                    <div id="booking-result" class="hidden animate-fade-in space-y-4">
-                        <!-- Result populated here -->
-                    </div>
+                <div id="booking-result" class="mt-8 hidden">
+                    <!-- Result loaded here -->
                 </div>
             </div>
         </div>
@@ -403,719 +296,614 @@
     </main>
 
     <!-- Booking Modal -->
-    <div id="booking-modal" class="fixed inset-0 z-[100] hidden">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
-        <div class="absolute inset-0 flex items-center justify-center p-4 pointer-events-none">
-            <div class="bg-dark-card rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-700 transform transition-all scale-100 pointer-events-auto"
-                id="modal-content">
-                <!-- Content injected via JS -->
+    <div id="booking-modal" class="fixed inset-0 bg-black/80 z-[60] hidden flex items-center justify-center p-4">
+        <div
+            class="bg-gray-800 w-full max-w-2xl rounded-2xl border border-gray-700 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+
+            <!-- Modal Header -->
+            <div class="bg-gray-900 p-4 border-b border-gray-700 flex justify-between items-center">
+                <h3 class="text-xl font-bold">Book Appointment</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white"><i
+                        class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-6 overflow-y-auto" id="modal-content">
+                <!-- Doctor Info -->
+                <div class="flex items-start gap-4 mb-6 pb-6 border-b border-gray-700">
+                    <div class="w-16 h-16 bg-emerald-900/50 rounded-full flex items-center justify-center text-2xl">
+                        👨‍⚕️</div>
+                    <div>
+                        <h4 class="text-lg font-bold" id="modal-doc-name">Dr. Name</h4>
+                        <p class="text-emerald-400" id="modal-doc-spec">Specialization</p>
+                        <p class="text-sm text-gray-400" id="modal-doc-hosp">Hospital</p>
+                        <p class="font-bold mt-1" id="modal-doc-fee">Rs. 0</p>
+                    </div>
+                </div>
+
+                <!-- Step 1: Date & Time -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Select Date</label>
+                    <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide" id="date-selector">
+                        <!-- Dates loaded here -->
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Select Time</label>
+                    <div class="grid grid-cols-4 gap-2" id="time-selector">
+                        <div class="col-span-4 text-gray-500 text-sm italic">Select a date first</div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Patient Details -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-1">Full Name *</label>
+                        <input type="text" id="patient-name"
+                            class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-1">Phone Number *</label>
+                            <input type="text" id="patient-phone" placeholder="0300-1234567"
+                                class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-1">Email (Optional)</label>
+                            <input type="email" id="patient-email"
+                                class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-1">Reason for Visit</label>
+                        <textarea id="patient-reason" rows="2"
+                            class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+                    </div>
+                </div>
+
+                <!-- Error Msg -->
+                <div id="booking-error" class="mt-4 text-red-500 text-sm hidden"></div>
+
+                <!-- Action -->
+                <div class="mt-8">
+                    <button onclick="confirmBooking()"
+                        class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-emerald-900/50">
+                        Confirm Appointment
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black/50 z-[100] hidden flex items-center justify-center">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-emerald-500"></div>
+    </div>
+
     <script>
-        // Production: set your Render backend URL here
-        // window.BACKEND_URL = "https://sehatbook-backend.onrender.com"
-        const BACKEND_URL = window.BACKEND_URL || "http://localhost:4444";
-        const API_BASE = BACKEND_URL;
-    </script>
+        const API_URL = window.location.hostname === 'localhost'
+            ? 'http://localhost:4444'
+            : 'https://sehatbook-api.onrender.com';
 
-        // --- State ---
-        let state = {
-            doctors: [],
-            cities: [],
-            specialties: [],
-            chatHistory: [],
-            currentDoctor: null,
-            selectedDate: null,
-            selectedSlotId: null
-        };
+        let cities = [];
+        let specializations = [];
+        let doctors = [];
+        let chatHistory = [];
+        let selectedDoctor = null;
+        let selectedSlot = null;
 
-        // --- Initialization ---
+        // Init
         document.addEventListener('DOMContentLoaded', async () => {
-            await checkBackend();
-            await loadInitialData();
-
-            // Mobile Menu Toggle
-            document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+            try {
+                await loadStats();
+                await loadCities();
+                await loadSpecializations();
+                await searchDoctors(); // Initial load
+            } catch (e) {
+                console.error("Backend offline?", e);
+                alert("Backend not running. Start with: uvicorn backend:app --port 4444");
+            }
         });
 
-        function toggleMobileMenu() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
+        // Navigation
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            // Find button that calls this
+            const btn = Array.from(document.querySelectorAll('.nav-link')).find(el => el.getAttribute('onclick').includes(tabId));
+            if (btn) btn.classList.add('active');
         }
 
-        async function checkBackend() {
-            try {
-                const res = await fetch(`${API_BASE}/`);
-                if (!res.ok) throw new Error("Backend error");
-            } catch (e) {
-                showGlobalError("⚠️ Cannot connect to backend. Run: uvicorn backend:app --port 4444");
-            }
+        // Data Loading
+        async function loadStats() {
+            const res = await fetch(`${API_URL}/stats`);
+            const data = await res.json();
+
+            animateValue("stat-doctors", 0, data.total_doctors, 1000);
+            animateValue("stat-cities", 0, data.total_cities, 1000);
+            animateValue("stat-specializations", 0, data.total_specializations, 1000);
+            animateValue("stat-appointments", 0, data.total_appointments, 1000);
         }
 
-        async function loadInitialData() {
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        async function loadCities() {
+            const res = await fetch(`${API_URL}/cities`);
+            const data = await res.json();
+            cities = data.cities;
+
+            const heroSelect = document.getElementById('hero-city');
+            const filterSelect = document.getElementById('filter-city');
+
+            cities.forEach(city => {
+                heroSelect.innerHTML += `<option value="${city}" class="text-black">${city}</option>`;
+                filterSelect.innerHTML += `<option value="${city}">${city}</option>`;
+            });
+        }
+
+        async function loadSpecializations() {
+            const res = await fetch(`${API_URL}/specializations`);
+            const data = await res.json();
+            specializations = data.specializations;
+
+            const filterSelect = document.getElementById('filter-specialty');
+            const grid = document.getElementById('specialty-grid');
+
+            specializations.forEach(spec => {
+                filterSelect.innerHTML += `<option value="${spec}">${spec}</option>`;
+
+                // Add to grid
+                grid.innerHTML += `
+                    <div onclick="filterBySpecialty('${spec}')" class="bg-gray-800 p-4 rounded-xl border border-gray-700 hover:border-emerald-500 cursor-pointer transition flex flex-col items-center text-center gap-2 group">
+                        <div class="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center group-hover:bg-emerald-600 transition">
+                            <i class="fa-solid fa-user-doctor text-xl"></i>
+                        </div>
+                        <span class="text-sm font-medium group-hover:text-emerald-400">${spec}</span>
+                    </div>
+                `;
+            });
+        }
+
+        // Search & Filter
+        async function searchDoctors() {
+            const city = document.getElementById('filter-city').value;
+            const specialty = document.getElementById('filter-specialty').value;
+            const search = document.getElementById('filter-search').value;
+
             showLoading(true);
             try {
-                // Parallel fetching
-                const [statsRes, citiesRes, specsRes] = await Promise.all([
-                    fetch(`${API_BASE}/stats`),
-                    fetch(`${API_BASE}/cities`),
-                    fetch(`${API_BASE}/specializations`)
-                ]);
+                const query = new URLSearchParams();
+                if (city) query.append('city', city);
+                if (specialty) query.append('specialization', specialty);
+                if (search) query.append('search', search);
 
-                if (statsRes.ok) {
-                    const stats = await statsRes.json();
-                    animateCounter("stat-doctors", stats.total_doctors);
-                    animateCounter("stat-cities", stats.total_cities);
-                    animateCounter("stat-specializations", stats.total_specializations);
-                    animateCounter("stat-appointments", stats.total_appointments);
-                }
-
-                if (citiesRes.ok) {
-                    const data = await citiesRes.json();
-                    state.cities = data.cities;
-                    populateDropdowns(state.cities, ['hero-city-select', 'filter-city']);
-                }
-
-                if (specsRes.ok) {
-                    const data = await specsRes.json();
-                    state.specialties = data.specializations;
-                    populateDropdowns(state.specialties, ['filter-specialty']);
-                    renderSpecialtiesGrid(state.specialties);
-                }
-
-                // Pre-load doctors
-                await loadDoctors();
-
-            } catch (error) {
-                console.error(error);
-                showGlobalError("Failed to load initial data");
+                const res = await fetch(`${API_URL}/doctors?${query}`);
+                const data = await res.json();
+                doctors = data.doctors;
+                renderDoctors();
             } finally {
                 showLoading(false);
             }
         }
 
-        // --- Navigation ---
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page-section').forEach(el => el.classList.add('hidden'));
-            // Show selected
-            document.getElementById(`page-${pageId}`).classList.remove('hidden');
+        function renderDoctors() {
+            const grid = document.getElementById('doctors-grid');
+            document.getElementById('results-count').innerText = `Showing ${doctors.length} doctors`;
+            grid.innerHTML = '';
 
-            // Update Nav Buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                if (btn.id === `nav-${pageId}`) {
-                    btn.classList.remove('text-gray-400', 'hover:bg-dark-card');
-                    btn.classList.add('text-white', 'bg-teal', 'shadow-sm');
-                } else {
-                    btn.classList.add('text-gray-400', 'hover:bg-dark-card');
-                    btn.classList.remove('text-white', 'bg-teal', 'shadow-sm');
-                }
+            if (doctors.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-10 text-gray-500">No doctors found matching your criteria.</div>`;
+                return;
+            }
+
+            doctors.forEach(doc => {
+                grid.innerHTML += `
+                    <div class="bg-gray-800 rounded-2xl border border-gray-700 overflow-hidden hover:border-emerald-500/50 transition group">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white group-hover:text-emerald-400 transition">${doc.name}</h3>
+                                    <p class="text-emerald-500 font-medium">${doc.specialization}</p>
+                                </div>
+                                <div class="bg-gray-700 px-2 py-1 rounded text-xs font-bold text-yellow-400 flex items-center gap-1">
+                                    <i class="fa-solid fa-star"></i> ${doc.rating}
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 space-y-2 text-sm text-gray-300">
+                                <p class="flex items-center gap-2"><i class="fa-solid fa-hospital text-gray-500"></i> ${doc.hospital}</p>
+                                <p class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-gray-500"></i> ${doc.city}</p>
+                                <p class="flex items-center gap-2"><i class="fa-solid fa-briefcase text-gray-500"></i> ${doc.experience}</p>
+                            </div>
+                            
+                            <div class="mt-6 flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs text-gray-500">Consultation Fee</p>
+                                    <p class="text-lg font-bold">Rs. ${doc.fee_pkr}</p>
+                                </div>
+                                <button onclick="openBookingModal(${doc.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-medium transition">
+                                    Book Appointment
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bg-gray-700/50 px-6 py-2 text-xs text-gray-400 flex justify-between">
+                            <span>Available Today</span>
+                            <span class="${doc.available_slots_count > 0 ? 'text-green-400' : 'text-red-400'}">
+                                ${doc.available_slots_count} slots left
+                            </span>
+                        </div>
+                    </div>
+                `;
             });
-
-            // Scroll to top
-            window.scrollTo(0, 0);
         }
 
-        // --- UI Helpers ---
+        // Listeners
+        document.getElementById('filter-city').addEventListener('change', searchDoctors);
+        document.getElementById('filter-specialty').addEventListener('change', searchDoctors);
+        document.getElementById('filter-search').addEventListener('input', debounce(searchDoctors, 500));
+
+        function searchFromHero() {
+            const city = document.getElementById('hero-city').value;
+            const search = document.getElementById('hero-search').value;
+
+            document.getElementById('filter-city').value = city;
+            document.getElementById('filter-search').value = search;
+
+            switchTab('find');
+            searchDoctors();
+        }
+
+        function filterBySpecialty(spec) {
+            document.getElementById('filter-specialty').value = spec;
+            switchTab('find');
+            searchDoctors();
+        }
+
+        // Booking Modal
+        async function openBookingModal(docId) {
+            selectedDoctor = doctors.find(d => d.id === docId);
+            if (!selectedDoctor) return;
+
+            document.getElementById('modal-doc-name').innerText = selectedDoctor.name;
+            document.getElementById('modal-doc-spec').innerText = selectedDoctor.specialization;
+            document.getElementById('modal-doc-hosp').innerText = selectedDoctor.hospital;
+            document.getElementById('modal-doc-fee').innerText = `Rs. ${selectedDoctor.fee_pkr}`;
+
+            document.getElementById('booking-modal').classList.remove('hidden');
+
+            // Load slots
+            const res = await fetch(`${API_URL}/doctors/${docId}/slots`);
+            const data = await res.json();
+            renderDateSelector(data.slots);
+        }
+
+        function renderDateSelector(slots) {
+            const container = document.getElementById('date-selector');
+            container.innerHTML = '';
+
+            const dates = Object.keys(slots).sort();
+
+            if (dates.length === 0) {
+                container.innerHTML = '<div class="text-red-400 text-sm">No slots available</div>';
+                return;
+            }
+
+            dates.slice(0, 7).forEach((date, index) => {
+                const dateObj = new Date(date);
+                const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
+                const dayNum = dateObj.getDate();
+
+                container.innerHTML += `
+                    <button onclick="selectDate('${date}')" class="date-pill min-w-[70px] p-2 rounded-xl border border-gray-600 hover:border-emerald-500 text-center transition ${index === 0 ? 'bg-emerald-900/30 border-emerald-500' : 'bg-gray-800'}">
+                        <div class="text-xs text-gray-400">${dayName}</div>
+                        <div class="font-bold text-lg">${dayNum}</div>
+                    </button>
+                `;
+
+                // Select first by default
+                if (index === 0) {
+                    renderTimeSelector(slots[date]);
+                    window.currentSlots = slots; // store for reference
+                }
+            });
+        }
+
+        function selectDate(date) {
+            // Update UI styling
+            document.querySelectorAll('.date-pill').forEach(el => {
+                el.classList.remove('bg-emerald-900/30', 'border-emerald-500');
+                el.classList.add('bg-gray-800');
+            });
+            event.currentTarget.classList.remove('bg-gray-800');
+            event.currentTarget.classList.add('bg-emerald-900/30', 'border-emerald-500');
+
+            renderTimeSelector(window.currentSlots[date]);
+        }
+
+        function renderTimeSelector(times) {
+            const container = document.getElementById('time-selector');
+            container.innerHTML = '';
+            selectedSlot = null;
+
+            times.forEach(slot => {
+                container.innerHTML += `
+                    <button onclick="selectTime(${slot.id}, this)" class="time-btn py-2 rounded-lg border border-gray-600 hover:border-emerald-500 hover:bg-emerald-900/20 text-sm font-medium transition">
+                        ${slot.time}
+                    </button>
+                `;
+            });
+        }
+
+        function selectTime(slotId, btn) {
+            selectedSlot = slotId;
+            document.querySelectorAll('.time-btn').forEach(el => {
+                el.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-600');
+            });
+            btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
+        }
+
+        async function confirmBooking() {
+            const name = document.getElementById('patient-name').value;
+            const phone = document.getElementById('patient-phone').value;
+            const email = document.getElementById('patient-email').value;
+            const reason = document.getElementById('patient-reason').value;
+
+            const errorDiv = document.getElementById('booking-error');
+
+            if (!selectedSlot) {
+                errorDiv.innerText = "Please select a time slot";
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+            if (!name || !phone) {
+                errorDiv.innerText = "Please fill in Name and Phone";
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            showLoading(true);
+            try {
+                const res = await fetch(`${API_URL}/book`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        patient_name: name,
+                        patient_phone: phone,
+                        patient_email: email,
+                        doctor_id: selectedDoctor.id,
+                        slot_id: selectedSlot,
+                        reason: reason
+                    })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    // Success View
+                    document.getElementById('modal-content').innerHTML = `
+                        <div class="text-center py-8">
+                            <div class="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl text-white shadow-lg shadow-emerald-500/50">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Appointment Confirmed!</h3>
+                            <p class="text-gray-400 mb-6">Your booking has been successfully scheduled.</p>
+                            
+                            <div class="bg-gray-900 border-2 border-dashed border-emerald-500/50 rounded-xl p-6 mb-6">
+                                <p class="text-xs text-emerald-400 uppercase font-bold tracking-wider mb-2">Confirmation Code</p>
+                                <div class="text-4xl font-mono font-bold text-white tracking-widest">${data.confirmation_code}</div>
+                            </div>
+                            
+                            <div class="bg-gray-800 rounded-lg p-4 text-left text-sm space-y-2 mb-6">
+                                <div class="flex justify-between"><span class="text-gray-400">Doctor</span> <span class="font-bold">${data.doctor_name}</span></div>
+                                <div class="flex justify-between"><span class="text-gray-400">Date</span> <span class="font-bold">${data.slot_date}</span></div>
+                                <div class="flex justify-between"><span class="text-gray-400">Time</span> <span class="font-bold">${data.slot_time}</span></div>
+                            </div>
+                            
+                            <p class="text-xs text-yellow-500 mb-6"><i class="fa-solid fa-triangle-exclamation"></i> Please screenshot this screen and save your code.</p>
+                            
+                            <button onclick="closeModal()" class="bg-gray-700 hover:bg-gray-600 text-white w-full py-3 rounded-xl">Close</button>
+                        </div>
+                    `;
+                    // Refresh data
+                    searchDoctors();
+                    loadStats();
+                } else {
+                    errorDiv.innerText = data.detail || "Booking failed";
+                    errorDiv.classList.remove('hidden');
+                }
+            } catch (e) {
+                errorDiv.innerText = "Network error";
+                errorDiv.classList.remove('hidden');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('booking-modal').classList.add('hidden');
+            // Reset content next time opened
+        }
+
+        // AI Chat
+        function sendQuickMsg(msg) {
+            document.getElementById('chat-input').value = msg;
+            sendMessage();
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            // Add User Msg
+            addChatMsg(msg, 'user');
+            input.value = '';
+
+            // Typing
+            showTyping(true);
+
+            try {
+                const res = await fetch(`${API_URL}/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: msg,
+                        history: chatHistory
+                    })
+                });
+
+                const data = await res.json();
+
+                showTyping(false);
+                addChatMsg(data.response, 'bot');
+                chatHistory = data.history || chatHistory;
+
+            } catch (e) {
+                showTyping(false);
+                addChatMsg("Error connecting to AI. Please try again.", 'bot');
+            }
+        }
+
+        function addChatMsg(text, role) {
+            const container = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.className = `chat-msg ${role === 'user' ? 'user-msg' : 'bot-msg'}`;
+            div.innerText = text; // Text only for safety
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function showTyping(show) {
+            const container = document.getElementById('chat-messages');
+            if (show) {
+                const div = document.createElement('div');
+                div.id = 'typing-indicator';
+                div.className = 'chat-msg bot-msg flex gap-1 items-center';
+                div.innerHTML = `
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+                `;
+                container.appendChild(div);
+                container.scrollTop = container.scrollHeight;
+            } else {
+                const el = document.getElementById('typing-indicator');
+                if (el) el.remove();
+            }
+        }
+
+        // My Booking
+        async function checkBooking() {
+            const code = document.getElementById('booking-code').value.trim();
+            if (!code) return;
+
+            showLoading(true);
+            try {
+                const res = await fetch(`${API_URL}/appointment/${code}`);
+                const data = await res.json();
+
+                const resultDiv = document.getElementById('booking-result');
+                resultDiv.classList.remove('hidden');
+
+                if (res.ok) {
+                    const statusColor = data.status === 'confirmed' ? 'text-green-400' : 'text-red-400';
+                    resultDiv.innerHTML = `
+                        <div class="bg-gray-800 rounded-xl border border-gray-700 p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-xl font-bold">Appointment Details</h3>
+                                <span class="uppercase font-bold tracking-wider ${statusColor}">${data.status}</span>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-y-4 text-sm mb-8">
+                                <div class="text-gray-400">Confirmation Code</div>
+                                <div class="font-mono font-bold">${data.confirmation_code}</div>
+                                
+                                <div class="text-gray-400">Doctor</div>
+                                <div>${data.doctor_name}</div>
+                                
+                                <div class="text-gray-400">Specialization</div>
+                                <div>${data.specialization}</div>
+                                
+                                <div class="text-gray-400">Hospital</div>
+                                <div>${data.hospital}</div>
+                                
+                                <div class="text-gray-400">Date & Time</div>
+                                <div class="text-emerald-400 font-bold">${data.slot_date} at ${data.slot_time}</div>
+                                
+                                <div class="text-gray-400">Patient Name</div>
+                                <div>${data.patient_name}</div>
+                            </div>
+                            
+                            ${data.status === 'confirmed' ? `
+                            <button onclick="cancelBooking('${data.confirmation_code}')" class="w-full border border-red-500 text-red-500 hover:bg-red-500/10 py-3 rounded-xl transition">
+                                Cancel Appointment
+                            </button>
+                            ` : ''}
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="bg-red-500/10 border border-red-500/50 text-red-400 p-4 rounded-xl text-center">
+                            No appointment found with code: <strong>${code}</strong>
+                        </div>
+                    `;
+                }
+            } catch (e) {
+                alert("Error checking booking");
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function cancelBooking(code) {
+            if (!confirm("Are you sure you want to cancel this appointment?")) return;
+
+            showLoading(true);
+            try {
+                const res = await fetch(`${API_URL}/appointment/${code}`, { method: 'DELETE' });
+                if (res.ok) {
+                    alert("Appointment cancelled.");
+                    checkBooking(); // refresh
+                } else {
+                    alert("Failed to cancel.");
+                }
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Utils
         function showLoading(show) {
             const el = document.getElementById('loading-overlay');
             if (show) el.classList.remove('hidden');
             else el.classList.add('hidden');
         }
 
-        function showGlobalError(msg) {
-            const el = document.getElementById('global-error');
-            document.getElementById('global-error-text').textContent = msg;
-            el.classList.remove('hidden');
-            setTimeout(() => el.classList.add('hidden'), 5000);
-        }
-
-        function populateDropdowns(items, elementIds) {
-            elementIds.forEach(id => {
-                const el = document.getElementById(id);
-                if (!el) return;
-                const first = el.firstElementChild; // Keep "All X" option
-                el.innerHTML = '';
-                el.appendChild(first);
-                items.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item;
-                    option.textContent = item;
-                    option.className = "text-black"; // Ensure visibility in dropdown
-                    el.appendChild(option);
-                });
-            });
-        }
-
-        function animateCounter(id, target) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            let current = 0;
-            const increment = Math.max(1, Math.ceil(target / 40));
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                el.textContent = current.toLocaleString();
-            }, 30);
-        }
-
-        function getSpecialtyIcon(name) {
-            const map = {
-                'Cardiologist': '❤️', 'Dermatologist': '🧴', 'Gynecologist': '👩',
-                'Pediatrician': '👶', 'Neurologist': '🧠', 'Orthopedic': '🦴',
-                'Psychiatrist': '🧘', 'Dentist': '🦷', 'Eye': '👁️', 'ENT': '👂',
-                'General': '🩺', 'Nutritionist': '🥗'
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
             };
-            for (const key in map) {
-                if (name.includes(key)) return map[key];
-            }
-            return '👨‍⚕️';
-        }
-
-        function renderSpecialtiesGrid(specs) {
-            const grid = document.getElementById('specialties-grid');
-            if (!grid) return;
-
-            // Show top 12 or all
-            grid.innerHTML = specs.slice(0, 12).map(spec => `
-                <div onclick="filterBySpecialty('${spec}')" class="glass-panel p-4 rounded-xl text-center cursor-pointer hover:bg-teal/20 hover:border-teal/50 transition group transform hover:-translate-y-1">
-                    <div class="text-3xl mb-3 group-hover:scale-110 transition duration-300">${getSpecialtyIcon(spec)}</div>
-                    <h3 class="font-medium text-xs md:text-sm text-gray-300 group-hover:text-white truncate" title="${spec}">${spec}</h3>
-                </div>
-            `).join('');
-        }
-
-        function filterBySpecialty(spec) {
-            document.getElementById('filter-specialty').value = spec;
-            showPage('doctors');
-            loadDoctors();
-        }
-
-        function searchFromHero() {
-            const search = document.getElementById('hero-search-input').value;
-            const city = document.getElementById('hero-city-select').value;
-
-            document.getElementById('filter-search').value = search;
-            document.getElementById('filter-city').value = city;
-
-            showPage('doctors');
-            loadDoctors();
-        }
-
-        // --- Find Doctors Logic ---
-        async function loadDoctors() {
-            const city = document.getElementById('filter-city').value;
-            const specialty = document.getElementById('filter-specialty').value;
-            const search = document.getElementById('filter-search').value;
-
-            const grid = document.getElementById('doctors-grid');
-            const countEl = document.getElementById('doctors-count');
-            const noDocsEl = document.getElementById('no-doctors-msg');
-
-            // Show skeleton or loading state
-            countEl.textContent = "Searching...";
-            grid.innerHTML = '';
-
-            try {
-                const params = new URLSearchParams();
-                if (city) params.append('city', city);
-                if (specialty) params.append('specialization', specialty);
-                if (search) params.append('search', search);
-
-                const res = await fetch(`${API_BASE}/doctors?${params}`);
-                if (!res.ok) throw new Error("Failed to fetch doctors");
-
-                const data = await res.json();
-                state.doctors = data.doctors;
-
-                countEl.textContent = `${data.total} doctors found`;
-
-                if (data.total === 0) {
-                    noDocsEl.classList.remove('hidden');
-                    return;
-                } else {
-                    noDocsEl.classList.add('hidden');
-                }
-
-                grid.innerHTML = data.doctors.map(doc => `
-                    <div class="glass-panel rounded-xl overflow-hidden hover:border-teal/50 transition duration-300 flex flex-col group relative">
-                        <!-- Top Bar -->
-                        <div class="h-1 bg-gradient-to-r from-teal to-blue-500"></div>
-                        
-                        <div class="p-5 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <div class="w-12 h-12 bg-dark-card rounded-full flex items-center justify-center text-2xl shadow-inner border border-gray-700">
-                                    ${getSpecialtyIcon(doc.specialization)}
-                                </div>
-                                <div class="bg-dark-card px-2 py-1 rounded text-xs font-bold text-yellow-400 border border-gray-700 flex items-center gap-1">
-                                    <span>⭐</span> ${doc.rating}
-                                </div>
-                            </div>
-                            
-                            <h3 class="text-lg font-bold text-white group-hover:text-teal transition line-clamp-1">${doc.name}</h3>
-                            <p class="text-teal text-sm font-medium mb-1 line-clamp-1">${doc.specialization}</p>
-                            <p class="text-gray-500 text-xs mb-4 line-clamp-1"><span class="mr-1">🏥</span> ${doc.hospital}</p>
-                            
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="text-[10px] uppercase font-bold px-2 py-1 bg-gray-700/50 rounded text-gray-300 border border-gray-600">${doc.city}</span>
-                                <span class="text-[10px] uppercase font-bold px-2 py-1 bg-gray-700/50 rounded text-gray-300 border border-gray-600">5+ Years Exp</span>
-                            </div>
-                            
-                            <div class="flex justify-between items-end border-t border-gray-700 pt-4 mt-auto">
-                                <div>
-                                    <p class="text-[10px] text-gray-500 uppercase">Consultation Fee</p>
-                                    <p class="text-lg font-bold text-white">Rs. ${doc.fee_pkr.toLocaleString()}</p>
-                                </div>
-                                <div class="text-right">
-                                     ${doc.available_slots_count > 0
-                        ? `<span class="text-xs text-green-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Available</span>`
-                        : `<span class="text-xs text-red-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Full</span>`
-                    }
-                                </div>
-                            </div>
-                        </div>
-                        <button onclick="openBookingModal(${doc.id})" class="w-full bg-teal hover:bg-teal-hover text-white font-bold py-3 transition text-sm uppercase tracking-wider">
-                            Book Appointment
-                        </button>
-                    </div>
-                `).join('');
-
-            } catch (error) {
-                console.error(error);
-                showGlobalError("Error loading doctors");
-            }
-        }
-
-        function resetFilters() {
-            document.getElementById('filter-city').value = '';
-            document.getElementById('filter-specialty').value = '';
-            document.getElementById('filter-search').value = '';
-            loadDoctors();
-        }
-
-        // Event Listeners for Filters
-        document.getElementById('filter-city').addEventListener('change', loadDoctors);
-        document.getElementById('filter-specialty').addEventListener('change', loadDoctors);
-        let searchTimeout;
-        document.getElementById('filter-search').addEventListener('input', (e) => {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(loadDoctors, 500);
-        });
-
-        // --- Booking Modal Logic ---
-        async function openBookingModal(doctorId) {
-            const modal = document.getElementById('booking-modal');
-            const content = document.getElementById('modal-content');
-            modal.classList.remove('hidden');
-
-            content.innerHTML = '<div class="p-10 flex justify-center"><div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-teal"></div></div>';
-
-            try {
-                // Fetch doctor details including slots
-                const res = await fetch(`${API_BASE}/doctors/${doctorId}`);
-                if (!res.ok) throw new Error("Failed to load doctor");
-                const doctor = await res.json();
-                state.currentDoctor = doctor;
-
-                // Prepare dates
-                const slots = doctor.slots || {};
-                const dates = Object.keys(slots).sort();
-
-                let datePillsHtml = '';
-                if (dates.length > 0) {
-                    state.selectedDate = dates[0]; // Select first date default
-                    datePillsHtml = dates.slice(0, 7).map((date, idx) => `
-                        <button onclick="selectDate('${date}')" class="date-pill px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-600 transition ${idx === 0 ? 'bg-teal border-teal text-white' : 'bg-dark-card text-gray-400 hover:border-gray-500'} whitespace-nowrap" data-date="${date}">
-                            ${formatDate(date)}
-                        </button>
-                    `).join('');
-                } else {
-                    datePillsHtml = '<p class="text-xs text-red-400">No available dates</p>';
-                }
-
-                content.innerHTML = `
-                    <div class="p-6">
-                        <!-- Header -->
-                        <div class="flex justify-between items-start mb-6 pb-4 border-b border-gray-700">
-                            <div>
-                                <h2 class="text-xl font-bold text-white">${doctor.name}</h2>
-                                <p class="text-teal text-sm">${doctor.specialization}</p>
-                                <p class="text-gray-400 text-xs mt-1">🏥 ${doctor.hospital}</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-xs text-gray-500">Fee</p>
-                                <p class="text-lg font-bold text-white">Rs. ${doctor.fee_pkr.toLocaleString()}</p>
-                            </div>
-                        </div>
-
-                        <!-- Date Selector -->
-                        <div class="mb-6">
-                            <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Select Date</label>
-                            <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-                                ${datePillsHtml}
-                            </div>
-                        </div>
-
-                        <!-- Time Slots -->
-                        <div class="mb-6">
-                            <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Select Time</label>
-                            <div id="time-slots-grid" class="grid grid-cols-4 gap-2 max-h-32 overflow-y-auto pr-1 scrollbar-hide">
-                                <!-- Times loaded via JS -->
-                            </div>
-                        </div>
-
-                        <!-- Form -->
-                        <form id="booking-form" onsubmit="submitBooking(event)" class="space-y-4">
-                            <div>
-                                <label class="block text-xs text-gray-400 mb-1">Full Name <span class="text-red-500">*</span></label>
-                                <input type="text" id="p-name" required class="w-full bg-navy border border-gray-700 rounded px-3 py-2 text-white text-sm focus:border-teal focus:outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-gray-400 mb-1">Phone Number <span class="text-red-500">*</span></label>
-                                <input type="tel" id="p-phone" required placeholder="0300-1234567" class="w-full bg-navy border border-gray-700 rounded px-3 py-2 text-white text-sm focus:border-teal focus:outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-gray-400 mb-1">Email (Optional)</label>
-                                <input type="email" id="p-email" class="w-full bg-navy border border-gray-700 rounded px-3 py-2 text-white text-sm focus:border-teal focus:outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-gray-400 mb-1">Reason (Optional)</label>
-                                <textarea id="p-reason" rows="1" class="w-full bg-navy border border-gray-700 rounded px-3 py-2 text-white text-sm focus:border-teal focus:outline-none"></textarea>
-                            </div>
-
-                            <div class="flex gap-3 pt-2">
-                                <button type="button" onclick="closeModal()" class="flex-1 py-2 text-gray-400 hover:text-white transition text-sm">Cancel</button>
-                                <button type="submit" class="flex-1 bg-teal hover:bg-teal-hover text-white font-bold py-2 rounded transition text-sm shadow-lg">Confirm Booking</button>
-                            </div>
-                        </form>
-                    </div>
-                `;
-
-                if (dates.length > 0) {
-                    renderTimeSlots(dates[0]);
-                }
-
-            } catch (error) {
-                console.error(error);
-                content.innerHTML = '<div class="p-6 text-center text-red-400">Failed to load details</div>';
-            }
-        }
-
-        function closeModal() {
-            document.getElementById('booking-modal').classList.add('hidden');
-        }
-
-        function selectDate(date) {
-            state.selectedDate = date;
-            document.querySelectorAll('.date-pill').forEach(el => {
-                if (el.dataset.date === date) {
-                    el.classList.remove('bg-dark-card', 'text-gray-400');
-                    el.classList.add('bg-teal', 'border-teal', 'text-white');
-                } else {
-                    el.classList.add('bg-dark-card', 'text-gray-400');
-                    el.classList.remove('bg-teal', 'border-teal', 'text-white');
-                }
-            });
-            renderTimeSlots(date);
-        }
-
-        function renderTimeSlots(date) {
-            const grid = document.getElementById('time-slots-grid');
-            const slots = state.currentDoctor.slots[date] || [];
-
-            if (slots.length === 0) {
-                grid.innerHTML = '<p class="col-span-full text-xs text-gray-500 italic">No slots available</p>';
-                state.selectedSlotId = null;
-                return;
-            }
-
-            grid.innerHTML = slots.map(slot => `
-                <button type="button" onclick="selectSlot(${slot.id}, this)" class="time-slot px-1 py-2 rounded border border-gray-700 bg-dark-card text-xs text-gray-300 hover:border-teal transition text-center">
-                    ${slot.slot_time}
-                </button>
-            `).join('');
-
-            state.selectedSlotId = null;
-        }
-
-        function selectSlot(id, el) {
-            state.selectedSlotId = id;
-            document.querySelectorAll('.time-slot').forEach(e => {
-                e.classList.remove('bg-teal', 'border-teal', 'text-white');
-                e.classList.add('bg-dark-card', 'text-gray-300');
-            });
-            el.classList.remove('bg-dark-card', 'text-gray-300');
-            el.classList.add('bg-teal', 'border-teal', 'text-white');
-        }
-
-        async function submitBooking(e) {
-            e.preventDefault();
-
-            if (!state.selectedSlotId) {
-                alert("Please select a time slot");
-                return;
-            }
-
-            const btn = e.target.querySelector('button[type="submit"]');
-            const originalText = btn.textContent;
-            btn.textContent = "Processing...";
-            btn.disabled = true;
-
-            const data = {
-                doctor_id: state.currentDoctor.id,
-                slot_id: state.selectedSlotId,
-                patient_name: document.getElementById('p-name').value,
-                patient_phone: document.getElementById('p-phone').value,
-                patient_email: document.getElementById('p-email').value,
-                reason: document.getElementById('p-reason').value
-            };
-
-            try {
-                const res = await fetch(`${API_BASE}/book`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-
-                const result = await res.json();
-
-                if (!res.ok) throw new Error(result.detail || "Booking failed");
-
-                // Show Success View
-                const content = document.getElementById('modal-content');
-                content.innerHTML = `
-                    <div class="p-8 text-center">
-                        <div class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <span class="text-4xl">✅</span>
-                        </div>
-                        <h2 class="text-2xl font-bold text-white mb-2">Appointment Confirmed!</h2>
-                        <p class="text-gray-400 mb-6 text-sm">Your booking is secure.</p>
-                        
-                        <div class="bg-navy border-2 border-dashed border-teal/50 rounded-xl p-4 mb-6 relative group cursor-pointer" onclick="navigator.clipboard.writeText('${result.confirmation_code}'); alert('Code copied!')">
-                            <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-1">Confirmation Code</p>
-                            <p class="text-3xl font-mono font-bold text-teal tracking-widest">${result.confirmation_code}</p>
-                            <div class="absolute inset-0 bg-teal/10 opacity-0 group-hover:opacity-100 transition flex items-center justify-center rounded-xl">
-                                <span class="text-xs text-teal font-bold">Click to Copy</span>
-                            </div>
-                        </div>
-                        
-                        <div class="text-left bg-dark-card rounded-lg p-4 mb-6 text-sm space-y-2 border border-gray-700">
-                            <div class="flex justify-between"><span class="text-gray-400">Doctor:</span> <span class="text-white font-medium">${result.details.doctor_name}</span></div>
-                            <div class="flex justify-between"><span class="text-gray-400">Date:</span> <span class="text-white font-medium">${result.details.slot_date}</span></div>
-                            <div class="flex justify-between"><span class="text-gray-400">Time:</span> <span class="text-white font-medium">${result.details.slot_time}</span></div>
-                            <div class="flex justify-between"><span class="text-gray-400">Fee:</span> <span class="text-white font-medium">Rs. ${result.details.fee_pkr}</span></div>
-                        </div>
-                        
-                        <div class="bg-yellow-500/10 border border-yellow-500/20 rounded p-3 mb-6 flex gap-3 items-center text-left">
-                            <span class="text-xl">⚠️</span>
-                            <p class="text-xs text-yellow-200">Please save your confirmation code. You will need it to check or cancel your appointment.</p>
-                        </div>
-                        
-                        <button onclick="closeModal(); location.reload()" class="w-full bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 rounded transition text-sm">
-                            Close
-                        </button>
-                    </div>
-                `;
-
-            } catch (error) {
-                alert(error.message);
-                btn.textContent = originalText;
-                btn.disabled = false;
-            }
-        }
-
-        // --- AI Chat Logic ---
-        function handleChatKey(e) {
-            if (e.key === 'Enter') sendMessage();
-        }
-
-        function sendQuickMessage(text) {
-            document.getElementById('chat-input').value = text;
-            sendMessage();
-        }
-
-        function clearChat() {
-            state.chatHistory = [];
-            document.getElementById('chat-messages').innerHTML = `
-                <div class="flex justify-start animate-fade-in">
-                    <div class="bg-dark-card text-gray-100 px-5 py-3 rounded-2xl rounded-tl-sm max-w-[85%] md:max-w-[70%] shadow-md border border-gray-700">
-                        <p>Chat cleared. How can I help you now?</p>
-                    </div>
-                </div>
-            `;
-        }
-
-        async function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const message = input.value.trim();
-            if (!message) return;
-
-            input.value = '';
-            addUserMessage(message);
-            showTypingIndicator();
-
-            try {
-                const res = await fetch(`${API_BASE}/chat`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        message: message,
-                        history: state.chatHistory
-                    })
-                });
-
-                const data = await res.json();
-
-                removeTypingIndicator();
-                addBotMessage(data.response);
-                state.chatHistory = data.history;
-
-            } catch (error) {
-                removeTypingIndicator();
-                addBotMessage("⚠️ AI not available. Check connection or API key.");
-            }
-        }
-
-        function addUserMessage(text) {
-            const div = document.createElement('div');
-            div.className = "flex justify-end animate-fade-in";
-            div.innerHTML = `<div class="bg-teal text-white px-5 py-3 rounded-2xl rounded-tr-sm max-w-[85%] md:max-w-[70%] shadow-md">${formatMessage(text)}</div>`;
-            document.getElementById('chat-messages').appendChild(div);
-            scrollToBottom();
-        }
-
-        function addBotMessage(text) {
-            const div = document.createElement('div');
-            div.className = "flex justify-start animate-fade-in";
-            div.innerHTML = `<div class="bg-dark-card text-gray-100 px-5 py-3 rounded-2xl rounded-tl-sm max-w-[85%] md:max-w-[70%] shadow-md border border-gray-700">${formatMessage(text)}</div>`;
-            document.getElementById('chat-messages').appendChild(div);
-            scrollToBottom();
-        }
-
-        function showTypingIndicator() {
-            const div = document.createElement('div');
-            div.id = "typing-indicator";
-            div.className = "flex justify-start animate-fade-in";
-            div.innerHTML = `
-                <div class="bg-dark-card px-4 py-4 rounded-2xl rounded-tl-sm shadow-md border border-gray-700 flex gap-1">
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
-                </div>`;
-            document.getElementById('chat-messages').appendChild(div);
-            scrollToBottom();
-        }
-
-        function removeTypingIndicator() {
-            const el = document.getElementById('typing-indicator');
-            if (el) el.remove();
-        }
-
-        function scrollToBottom() {
-            const container = document.getElementById('chat-messages');
-            container.scrollTop = container.scrollHeight;
-        }
-
-        function formatMessage(text) {
-            return text.replace(/\n/g, '<br>');
-        }
-
-        // --- My Booking Logic ---
-        async function findAppointment() {
-            const code = document.getElementById('booking-code-input').value.trim().toUpperCase();
-            if (!code) {
-                alert("Please enter a code");
-                return;
-            }
-
-            const resultDiv = document.getElementById('booking-result');
-            resultDiv.classList.remove('hidden');
-            resultDiv.innerHTML = '<div class="text-center py-8"><div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-teal mx-auto"></div></div>';
-
-            try {
-                const res = await fetch(`${API_BASE}/appointment/${code}`);
-                if (res.status === 404) {
-                    resultDiv.innerHTML = `
-                        <div class="bg-red-500/10 border border-red-500/30 rounded-lg p-4 text-center text-red-200">
-                            <p class="font-bold mb-1">No appointment found</p>
-                            <p class="text-sm opacity-80">Code: ${code}</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                const data = await res.json();
-                const isConfirmed = data.status === 'confirmed';
-
-                resultDiv.innerHTML = `
-                    <div class="bg-dark-card rounded-xl overflow-hidden border border-gray-700 shadow-lg">
-                        <div class="bg-gray-800/50 p-4 border-b border-gray-700 flex justify-between items-center">
-                            <span class="font-mono font-bold text-lg text-white">${data.confirmation_code}</span>
-                            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase ${isConfirmed ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}">
-                                ${data.status}
-                            </span>
-                        </div>
-                        <div class="p-6 space-y-4">
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <p class="text-[10px] text-gray-500 uppercase font-bold">Patient</p>
-                                    <p class="font-medium text-white">${data.patient_name}</p>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] text-gray-500 uppercase font-bold">Doctor</p>
-                                    <p class="font-medium text-white">${data.doctor_name}</p>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] text-gray-500 uppercase font-bold">Date & Time</p>
-                                    <p class="font-medium text-white">${data.slot_date} <span class="text-teal mx-1">|</span> ${data.slot_time}</p>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] text-gray-500 uppercase font-bold">Fee</p>
-                                    <p class="font-medium text-white">Rs. ${data.fee_pkr}</p>
-                                </div>
-                            </div>
-                            <div class="pt-4 border-t border-gray-700">
-                                <p class="text-[10px] text-gray-500 uppercase font-bold mb-1">Hospital</p>
-                                <p class="text-white flex items-center gap-2"><span class="text-gray-500">🏥</span> ${data.hospital}</p>
-                            </div>
-                            
-                            ${isConfirmed ? `
-                                <button onclick="cancelBooking('${data.confirmation_code}')" class="w-full mt-4 border border-red-500/50 text-red-400 hover:bg-red-500 hover:text-white font-bold py-2 rounded transition text-sm">
-                                    ❌ Cancel Appointment
-                                </button>
-                            ` : ''}
-                        </div>
-                    </div>
-                `;
-
-            } catch (error) {
-                resultDiv.innerHTML = '<div class="text-center text-red-400">Error fetching details</div>';
-            }
-        }
-
-        async function cancelBooking(code) {
-            if (!confirm("Are you sure you want to cancel this appointment? This action cannot be undone.")) return;
-
-            try {
-                const res = await fetch(`${API_BASE}/appointment/${code}`, { method: 'DELETE' });
-                if (res.ok) {
-                    alert("Appointment cancelled successfully.");
-                    findAppointment(); // Refresh view
-                } else {
-                    alert("Failed to cancel.");
-                }
-            } catch (e) {
-                alert("Error cancelling.");
-            }
-        }
-
-        function formatDate(dateStr) {
-            const options = { weekday: 'short', month: 'short', day: 'numeric' };
-            return new Date(dateStr).toLocaleDateString('en-US', options);
         }
     </script>
 </body>

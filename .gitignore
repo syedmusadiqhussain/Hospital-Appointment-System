@@ -1,6 +1,35 @@
+# Database (contains real data, don't upload)
 sehatbook.db
-__pycache__/
+hospital_appointment.db
+*.db
+
+# Environment variables (contains secret API keys)
 .env
+
+# Python
+__pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
+env/
 venv/
+.venv/
+pip-log.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
 .DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Node (if any)
+node_modules/

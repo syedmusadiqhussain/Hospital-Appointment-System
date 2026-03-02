@@ -6,5 +6,4 @@ lxml
 pandas
 google-generativeai
 python-dotenv
-sqlalchemy
-firecrawl-py
+python-multipart
